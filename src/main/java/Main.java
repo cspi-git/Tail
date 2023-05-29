@@ -12,13 +12,9 @@ import java.util.Set;
 import javax.swing.*;
 
 public class Main extends Application {
-    public ComboBox<String> OptionComboBox;
-
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("Tail.fxml"));
-
-        OptionComboBox.getItems().addAll("Open");
 
         Scene scene = new Scene(root);
         stage.setTitle("TAIL");
