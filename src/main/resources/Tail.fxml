@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="461.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main">
+   <children>
+      <TabPane prefHeight="461.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Lookup">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="418.0" prefWidth="600.0">
+                     <children>
+                        <TextField layoutX="26.0" layoutY="23.0" promptText="Enter IP address" />
+                        <ComboBox fx:id="OptionComboBox" layoutX="191.0" layoutY="23.0" prefHeight="26.0" prefWidth="167.0" promptText="Select an option" />
+                        <TextArea layoutX="26.0" layoutY="106.0" prefHeight="303.0" prefWidth="547.0" />
+                        <Button layoutX="26.0" layoutY="72.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Clear output" />
+                         <Button layoutX="139.0" layoutY="72.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="103.0" text="Save output" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Settings">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
