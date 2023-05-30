@@ -17,7 +17,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("Tail.fxml"));
 
         Scene scene = new Scene(root);
-        stage.setTitle("TAIL");
+        stage.setTitle("Hanaui - Tail");
         stage.setScene(scene);
         stage.show();
     }
