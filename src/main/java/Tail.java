@@ -7,12 +7,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Set;
 import javax.swing.*;
+import javax.swing.text.html.Option;
+
 import javafx.event.ActionEvent;
 import java.io.File;
 
@@ -22,6 +23,7 @@ public class Tail {
     public Tab LookupTab;
     public TextField IPInputBox;
     private String ip;
+    private String LookupOptionSelection;
 
     public void AddLog(String log) {
         LogBoxTextBox.appendText(log + "\n");
@@ -35,30 +37,15 @@ public class Tail {
         // Listener for the ComboBox, which is the dropdown menu, this lets us know when the user has selected an option
         // We can then use a switch statement to determine which option was selected
         OptionComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Selected item: '" + newValue + "'.");
-
-            // Create a new instance of the TailLookup class calling it 'lookup'
-            TailLookup lookup = new TailLookup();
-
-            switch (newValue) {
-                case "Basic IP lookup":
-                    //lookup.basic(ip);
-                    AddLog("basic lookup");
-                    break;
-                case "Whois lookup":
-                    AddLog("whois lookup");
-                    break;
-                default:
-                    System.out.println("Error: Invalid selection");
-                    break;
-            }
+            // Set the LookupOptionSelection variable to the value of the newValue variable
+            LookupOptionSelection = newValue.toString();
         });
 
         // listener for user to unfocus the IP input box
         IPInputBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
                 // when the user unfocuses the IP input box, we want to get the IP they entered
-                ip = IPInputBox.getText();
+                ip = IPInputBox.getText().toString();
 
                 if (ip.equals("")) {
                     // if the IP input box is empty, we want to display an error message
@@ -107,6 +94,28 @@ public class Tail {
         } catch (IOException e) {
             AddLog(e.toString());
             e.printStackTrace();
+        }
+    }
+
+    public void LookupButton(ActionEvent event) throws Exception {
+        System.out.println("Lookup button pressed!");
+
+        TailLookup lookup = new TailLookup();
+
+        if (LookupOptionSelection == null) {
+            AddLog("Error: No lookup option selected!");
+        } else if (ip ==  null) {
+            AddLog("Error: IP input box is empty!");
+        } else {
+            if (LookupOptionSelection.equals("Basic IP lookup")) {
+                AddLog(lookup.basic(ip));
+            } else if (LookupOptionSelection.equals("Whois lookup")) {
+                AddLog("Whois lookup selected!");
+            } else if (LookupOptionSelection.equals("DNS lookup")) {
+                AddLog("DNS lookup selected!");
+            } else {
+                AddLog("Error: Option '" + LookupOptionSelection + "' is not yet implemented!");
+            }
         }
     }
 }
