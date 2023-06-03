@@ -110,7 +110,7 @@ public class Tail {
             if (LookupOptionSelection.equals("Basic IP lookup")) {
                 AddLog(lookup.basic(ip));
             } else if (LookupOptionSelection.equals("Whois lookup")) {
-                AddLog("Whois lookup selected!");
+                AddLog(lookup.whois(ip));
             } else if (LookupOptionSelection.equals("DNS lookup")) {
                 AddLog("DNS lookup selected!");
             } else {

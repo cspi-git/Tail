@@ -5,19 +5,17 @@ import java.net.*;
 
 public class TailLookup extends Tail {
     private String basic = "https://hanaui-tails.vercel.app/api/1.0/information?ip=";
+    private String whois = "https://hanaui-tails.vercel.app/api/1.0/whois?ip=";
+    APIParser parser = new APIParser();
 
     @Override
     public void AddLog(String log) {
         super.AddLog(log);
     }
 
-    public String basic(String ip) throws Exception {
-        if (ip.equals("")) {
-            return "Error: IP input box is empty!";
-        }
-
+    public String GET(String urlparam, String ip) throws Exception {
         // Code: https://www.baeldung.com/java-http-request
-        URL url = new URL(basic + ip);
+        URL url = new URL(urlparam);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
 
@@ -40,7 +38,18 @@ public class TailLookup extends Tail {
             return "Error: No information found for '" + ip + "'!";
         }
 
-        APIParser parser = new APIParser();
-        return parser.basic(content.toString());
+        return content.toString();
+    }
+
+    public String basic(String ip) throws Exception {
+        String url = basic + ip;
+        String data = GET(url, ip);
+        return parser.basic(data);
+    }
+
+    public String whois(String ip) throws Exception {
+        String url = whois + ip;
+        String data = GET(url, ip);
+        return parser.whois(data);
     }
 }
