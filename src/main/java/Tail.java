@@ -1,4 +1,3 @@
-import com.sun.jnlp.ApiDialog;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,8 +30,8 @@ public class Tail {
 
     @FXML
     public void initialize() {
-        System.out.println("Tail controller started!");
-        OptionComboBox.getItems().addAll("Basic IP lookup", "Whois lookup", "DNS lookup");
+//        System.out.println("Tail controller started!");
+        OptionComboBox.getItems().addAll("Basic IP lookup", "Whois lookup", "DNS lookup", "Port scan (API)", "Port scan (Native)");
 
         // Listener for the ComboBox, which is the dropdown menu, this lets us know when the user has selected an option
         // We can then use a switch statement to determine which option was selected
@@ -53,14 +52,13 @@ public class Tail {
                     return;
                 }
 
-                AddLog("IP: " + ip);
+                AddLog("Set IP: " + ip);
             }
         });
 
         // listener for user to unfocus the LookupTab
         LookupTab.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) {
-                System.out.println("Unfocused on the LookupTab");
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Hanaui - Tail");
                 alert.setHeaderText(null);
@@ -98,8 +96,7 @@ public class Tail {
     }
 
     public void LookupButton(ActionEvent event) throws Exception {
-        System.out.println("Lookup button pressed!");
-
+//        System.out.println("Lookup button pressed!");
         TailLookup lookup = new TailLookup();
 
         if (LookupOptionSelection == null) {
@@ -113,6 +110,10 @@ public class Tail {
                 AddLog(lookup.whois(ip));
             } else if (LookupOptionSelection.equals("DNS lookup")) {
                 AddLog("DNS lookup selected!");
+            } else if (LookupOptionSelection.equals("Port scan (API)")) {
+                AddLog("Port scan (API) selected!");
+            } else if (LookupOptionSelection.equals("Port scan (Native)")) {
+                AddLog("Port scan (Native) selected!");
             } else {
                 AddLog("Error: Option '" + LookupOptionSelection + "' is not yet implemented!");
             }

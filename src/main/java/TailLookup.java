@@ -14,6 +14,7 @@ public class TailLookup extends Tail {
     }
 
     public String GET(String urlparam, String ip) throws Exception {
+//        System.out.println("GET function start");
         // Code: https://www.baeldung.com/java-http-request
         URL url = new URL(urlparam);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -21,10 +22,12 @@ public class TailLookup extends Tail {
 
         int status = con.getResponseCode();
 
+//        System.out.println("get function reading buffer");
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
 
+//        System.out.println("instancing stringbuffer as content");
         StringBuffer content = new StringBuffer();
 
         while ((inputLine = in.readLine()) != null) {
@@ -34,9 +37,19 @@ public class TailLookup extends Tail {
         in.close();
         con.disconnect();
 
-        if (content.toString() == "") {
+//        System.out.println("get function checking if ip is valid");
+        if (content.toString().contains("Invalid IP.")) {
+            return "Error: Invalid IP '" + ip + "'!";
+        }
+
+//        System.out.println("get function checking if content is empty");
+        if (content.toString().equals("")) {
             return "Error: No information found for '" + ip + "'!";
         }
+
+//        System.out.println("get function end");
+
+//        System.out.println(content.toString());
 
         return content.toString();
     }
